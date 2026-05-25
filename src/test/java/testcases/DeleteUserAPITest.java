@@ -8,25 +8,18 @@ import org.testng.annotations.Test;
 
 public class DeleteUserAPITest extends BaseTest
 {
-    @Test
+    @Test(priority = 3 , groups = {"regression"})
     public void DeleteUserTest()
     {
 
         Response response = requestSpecification
                 .when()
-                .delete("/users/1");
+                .delete("/users/" + CreateUserAPITest.userId);
 
         response.prettyPrint();
 
         response.then().statusCode(200);
 
-        int id = response.jsonPath().getInt("id");
-        String username = response.jsonPath().getString("username");
-
-        System.out.println(username);
-
-        Assert.assertEquals(id,1);
-        Assert.assertEquals(username,"johnd");
 
     }
 }

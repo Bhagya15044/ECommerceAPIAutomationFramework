@@ -14,7 +14,9 @@ public class BaseTest
 
     // Centralized shared token variable
     public static String token;
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
+    // why alwaysRun = true added means sometimes group executions like smoke,sanity, regression runs.
+    // when testng runs the selected groups configurations like @Beforeclass, @Beforemethod will not execute automatically unless we add alwaysRun = True
     public void setup()
     {
         //BaseURI configuration
@@ -32,3 +34,25 @@ public class BaseTest
         requestSpecification.header("Authorization", "Bearer " + token);
     }
 }
+// Why alwaysRun = true is added:
+//
+// Sometimes during group executions like:
+// smoke, sanity, regression
+//
+// TestNG runs only selected grouped test methods.
+//
+// During this process, configuration methods like:
+// @BeforeClass
+// @BeforeMethod
+// @AfterClass
+//
+// may not execute automatically.
+//
+// To ensure setup/configuration methods execute
+// regardless of group filtering,
+// we use:
+//
+// @BeforeClass(alwaysRun = true)
+//
+// This guarantees framework initialization happens properly
+// before grouped test execution.

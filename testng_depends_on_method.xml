@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Workflow Dependency Suite">
+    <test name="User Workflow Test" preserve-order="true">
+        <classes>
+            <class name="testcases.UserWorkflowTest">
+                <methods>
+                    <include name="CreateUserTest"/>
+                    <include name="UpdateUserTest"/>
+                    <include name="DeleteUserTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

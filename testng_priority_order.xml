@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="API Automation Suite">
+
+    <test name="User API Workflow" preserve-order="true">
+
+        <classes>
+
+            <class name="testcases.CreateUserAPITest">
+                <methods>
+                    <include name="CreateUserTest"/>
+                </methods>
+            </class>
+
+            <class name="testcases.UpdateUserAPITest">
+                <methods>
+                    <include name="UpdateUserTest"/>
+                </methods>
+            </class>
+
+            <class name="testcases.DeleteUserAPITest">
+                <methods>
+                    <include name="DeleteUserTest"/>
+                </methods>
+            </class>
+
+        </classes>
+
+    </test>
+
+</suite>
