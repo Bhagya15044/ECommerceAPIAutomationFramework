@@ -6,7 +6,10 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import models.User;
+import org.testng.annotations.Listeners;
+import listeners.TestListener;
 
+@Listeners(TestListener.class)
 public class CreateUserAPITest extends BaseTest
 {
     public static int userId;
