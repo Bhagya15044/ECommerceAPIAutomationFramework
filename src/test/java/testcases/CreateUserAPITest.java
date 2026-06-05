@@ -8,21 +8,25 @@ import org.testng.annotations.Test;
 import models.User;
 import org.testng.annotations.Listeners;
 import listeners.TestListener;
+import retry.RetryAnalyzer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import utils.JsonDataReader;
 
 @Listeners(TestListener.class)
-public class CreateUserAPITest extends BaseTest
-{
+public class CreateUserAPITest extends BaseTest {
+    private static final Logger logger = LogManager.getLogger(CreateUserAPITest.class);
     public static int userId;
 
-    @Test(priority = 1,groups = {"smoke", "regression"}, dataProvider = ("userData"))
-    public void CreateUserTest(String email, String username, String password)
-    {
-
+    @Test(priority = 1, groups = {"smoke", "regression"}, dataProvider = "userData", retryAnalyzer = RetryAnalyzer.class)
+    public void CreateUserTest(String email, String username, String password) {
+        //System.out.println(email + " " + username + " " + password);  --> to check jsonreader is working or not.
         User user = new User();
 
         user.setEmail(email);
         user.setUsername(username);
         user.setPassword(password);
+
 
         // Send Post-Request
         Response response = requestSpecification
@@ -50,16 +54,12 @@ public class CreateUserAPITest extends BaseTest
     }
 
     @DataProvider(name = "userData")
-    public  Object[][] userData()
-    {
-        return new Object[][]
-                {
-                        {"test1@gmail.com", "user1", "pass1"},
-                        {"test2@gmail.com", "user2", "pass2"},
-                        {"test3@gmail.com", "user3", "pass3"}
-                };
+    public Object[][] userData() {
+        return JsonDataReader.getUserData();
     }
+
 }
+
 /*
       After getting the response from the server, first thing I inspected the response structure
       and printed using the response.prettyPrint(); so this will give currently what is field present in the response structure
